@@ -1,32 +1,24 @@
 import React from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const SignUpPage = () => {
-	const navigation = useNavigation();
-
-	const navigateToLoginPage = () => {
-		navigation.navigate('Login');
-	};
-
-	const navigateToHomePage = () => {
-		navigation.navigate('Home');
+const ProfilePage = ({ navigation }) => {
+	// Dummy user data
+	const user = {
+		username: 'alphonsethm',
+		bio: "Welcome to your account page, there's so much you can do",
+		avatar: require('../assets/guys.png'), // You can replace this with your own image
 	};
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Register</Text>
-			<TextInput
-				style={[styles.input, styles.textBold]} // Combine styles for username input
-				placeholder="Username"
-			/>
-			<TextInput
-				style={[styles.input, styles.textBold]} // Combine styles for password input
-				placeholder="Password"
-				secureTextEntry
-			/>
-			<Button title="Login" onPress={navigateToLoginPage} />
-			<Button title="Go back to Home" onPress={navigateToHomePage} />
+			<Text style={styles.heading}>Overview</Text>
+			<Image source={user.avatar} style={styles.avatar} />
+			<Text style={styles.username}>{user.username}</Text>
+			<Text style={styles.bio}>{user.bio}</Text>
+			<Image source={require('../assets/ramen.png')} style={styles.additionalImage} />
+			<TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.buttonContainer}>
+				<Image source={require('../assets/homepic.png')} style={styles.buttonImage} />
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -34,28 +26,49 @@ const SignUpPage = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#D3D3D3', // Change background color to grey
-		padding: 20,
+		justifyContent: 'flex-start', // Align content to the top of the screen
+		paddingTop: 80, // Add padding from the top to push content down
 	},
-	title: {
+	heading: {
+		fontSize: 20,
+		fontWeight: 'bold',
+		alignSelf: 'flex-start',
+		marginLeft: 20,
+		marginBottom: 20,
+	},
+	avatar: {
+		width: 130,
+		height: 130,
+		borderRadius: 75,
+		marginBottom: 20,
+	},
+	username: {
 		fontSize: 24,
+		fontWeight: 'bold',
+		marginBottom: 10,
+	},
+	bio: {
+		fontSize: 16,
+		textAlign: 'center',
+		paddingHorizontal: 20,
 		marginBottom: 20,
 	},
-	input: {
-		height: 40,
-		width: '100%',
-		borderColor: '#ccc',
-		borderWidth: 1,
+	additionalImage: {
+		width: 250, // Larger width
+		height: 250, // Larger height
+		alignSelf: 'flex-start', // Align to the left
+		marginTop: 30,
+		marginLeft: 10, // Add some left margin
 		marginBottom: 20,
-		paddingHorizontal: 10,
-		borderRadius: 55,
-		color: 'black', // Set text color to black
 	},
-	textBold: {
-		fontWeight: 'bold', // Set text to bold
+	buttonContainer: {
+		padding: 100,
+	},
+	buttonImage: {
+		width: 50,
+		height: 50,
 	},
 });
 
-export default SignUpPage;
+export default ProfilePage;

@@ -8,16 +8,22 @@ const ImageSlider = () => {
 	const navigation = useNavigation();
 
 	const handleGoBack = () => {
-		navigation.navigate('Map'); // Navigate back to the home screen
+		navigation.navigate('Home'); // Navigate back to the home screen
+	};
+
+	const handleNavigateToAnotherPage = () => {
+		navigation.navigate('Map'); // Navigate to AnotherPage
+	};
+	const handleNavigateToAnotherAnotherPage = () => {
+		navigation.navigate('Prizes'); // Navigate to AnotherPage
 	};
 
 	const [images] = useState([
-		{ id: 1, image: require('../assets/coffee.png'), text: 'HIDEOUT COFFEE' },
+		{ id: 1, image: require('../assets/ramen.png'), text: 'HIDEOUT COFFEE' },
 		{ id: 2, image: require('../assets/spinakerlogo.png'), text: 'Text for image 2' },
 		{ id: 3, image: require('../assets/costa.png'), text: 'Text for image 3' },
 		{ id: 4, image: require('../assets/coffee.png'), text: 'Text for image 3' },
 		{ id: 5, image: require('../assets/spinakerlogo.png'), text: 'Text for image 3' },
-
 		// Add more images and text as needed
 	]);
 
@@ -38,7 +44,7 @@ const ImageSlider = () => {
 		<View style={styles.container}>
 			<Text style={styles.title}>LocalLink</Text>
 			<View style={styles.rectangle}>
-				<Text style={styles.rectangleText}>Free cookie</Text>
+				<Text style={styles.rectangleText}>Ugly fix this page</Text>
 			</View>
 			<FlatList
 				data={images}
@@ -57,8 +63,14 @@ const ImageSlider = () => {
 				</TouchableOpacity>
 			)}
 			<View style={styles.footer}>
+				<TouchableOpacity onPress={handleNavigateToAnotherAnotherPage}>
+					<Image source={require('../assets/guys.png')} style={styles.footerImage} />
+				</TouchableOpacity>
 				<TouchableOpacity onPress={handleGoBack}>
 					<Image source={require('../assets/homepic.png')} style={styles.footerImage} />
+				</TouchableOpacity>
+				<TouchableOpacity onPress={handleNavigateToAnotherPage}>
+					<Image source={require('../assets/profile1.png')} style={styles.footerImage} />
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -70,7 +82,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#b8bc7f', // Set background color to #eceef3
+		backgroundColor: '#e1dfdd', // Set background color to #eceef3
 		paddingTop: 90, // Adjust the top padding
 	},
 	imageList: {
@@ -102,15 +114,14 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	footer: {
-		position: 'absolute',
-		bottom: 0,
+		flexDirection: 'row', // Align buttons horizontally
+		justifyContent: 'space-between', // Distribute space evenly
 		width: '100%',
-		backgroundColor: '#2e3106',
-		borderTopLeftRadius: 60,
-		borderTopRightRadius: 60,
+		backgroundColor: '#88837c',
 		paddingTop: 4,
 		paddingBottom: 10,
 		alignItems: 'center',
+		paddingHorizontal: 20, // Add horizontal padding for space between buttons
 	},
 	footerImage: {
 		width: 50, // Adjust image width as needed
