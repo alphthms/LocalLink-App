@@ -18,7 +18,7 @@ const SignUpPage = () => {
 			<Text style={styles.title}>Register</Text>
 			<TextInput
 				style={[styles.input, styles.textBold]} // Combine styles for username input
-				placeholder="Username"
+				placeholder="studentnumber@myport.ac.uk"
 			/>
 			<TextInput
 				style={[styles.input, styles.textBold]} // Combine styles for password input

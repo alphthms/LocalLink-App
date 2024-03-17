@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Dimensions, StyleSheet, Image, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -19,33 +19,28 @@ const ImageSlider = () => {
 	};
 
 	const [images] = useState([
-		{ id: 1, image: require('../assets/ramen.png'), text: 'HIDEOUT COFFEE' },
-		{ id: 2, image: require('../assets/spinakerlogo.png'), text: 'Text for image 2' },
-		{ id: 3, image: require('../assets/costa.png'), text: 'Text for image 3' },
+		{ id: 1, image: require('../assets/jerklogo.png'), text: 'HIDEOUT COFFEE' },
+		{ id: 2, image: require('../assets/finalcofffeee.png'), text: 'Text for image 2' },
+		{ id: 3, image: require('../assets/fuegologo.png'), text: 'Text for image 3' },
 		{ id: 4, image: require('../assets/coffee.png'), text: 'Text for image 3' },
-		{ id: 5, image: require('../assets/spinakerlogo.png'), text: 'Text for image 3' },
+		{ id: 5, image: require('../assets/clubhousedone.png'), text: 'Text for image 3' },
 		// Add more images and text as needed
 	]);
 
 	const [selectedImage, setSelectedImage] = useState(null);
 
-	const handleImagePress = (imageId) => {
-		const image = images.find((img) => img.id === imageId);
-		setSelectedImage(image);
+	const handleImagePress = () => {
+		setSelectedImage(null);
 	};
 
 	const renderImage = ({ item }) => (
-		<TouchableOpacity onPress={() => handleImagePress(item.id)}>
+		<TouchableOpacity onPress={handleImagePress}>
 			<Image source={item.image} style={styles.image} />
 		</TouchableOpacity>
 	);
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>LocalLink</Text>
-			<View style={styles.rectangle}>
-				<Text style={styles.rectangleText}>Ugly fix this page</Text>
-			</View>
 			<FlatList
 				data={images}
 				renderItem={renderImage}
@@ -80,21 +75,21 @@ const ImageSlider = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#e1dfdd', // Set background color to #eceef3
-		paddingTop: 90, // Adjust the top padding
+		justifyContent: 'center', // Center content vertically
+		alignItems: 'center', // Center content horizontally
+		backgroundColor: '#eeeff3 ', // Set background color to #eceef3
 	},
 	imageList: {
 		alignItems: 'center',
-		marginTop: 80,
+		marginTop: 600, // Adjust the top margin
+		height: 180, // Set the height of the image list
 	},
 	image: {
-		width: 144, // Adjust the width of the image as needed
-		height: 140, // Adjust the height of the image as needed
+		width: 100, // Adjust the width of the image
+		height: 100, // Adjust the height of the image
 		resizeMode: 'cover',
-		borderRadius: 23,
-		marginHorizontal: 8,
+		borderRadius: 15, // Adjust the border radius
+		marginHorizontal: 5,
 	},
 	modalContainer: {
 		...StyleSheet.absoluteFillObject,
@@ -103,8 +98,8 @@ const styles = StyleSheet.create({
 	},
 	modal: {
 		backgroundColor: 'white',
-		width: 290, // Adjust the width of the image as needed
-		height: 290,
+		width: 250, // Adjust the width of the modal
+		height: 250, // Adjust the height of the modal
 		borderRadius: 10,
 		elevation: 5,
 	},
@@ -117,31 +112,20 @@ const styles = StyleSheet.create({
 		flexDirection: 'row', // Align buttons horizontally
 		justifyContent: 'space-between', // Distribute space evenly
 		width: '100%',
-		backgroundColor: '#88837c',
+		backgroundColor: '#fff',
 		paddingTop: 4,
 		paddingBottom: 10,
 		alignItems: 'center',
-		paddingHorizontal: 20, // Add horizontal padding for space between buttons
+		paddingHorizontal: 30, // Add horizontal padding for space between buttons
 	},
 	footerImage: {
-		width: 50, // Adjust image width as needed
-		height: 50, // Adjust image height as needed
+		width: 40, // Adjust image width
+		height: 40, // Adjust image height
 	},
 	title: {
 		fontSize: 50,
 		fontWeight: 'bold',
 		color: 'white',
-	},
-	rectangle: {
-		backgroundColor: 'white',
-		padding: 90, // Increase padding for a bigger rectangle
-		marginTop: 60, // Adjust margin for positioning
-		borderRadius: 20,
-	},
-	rectangleText: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		color: 'black',
 	},
 });
 
