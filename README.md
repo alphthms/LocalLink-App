@@ -1,1 +1,1 @@
-![Alt text](ramen.png)
+![Alt text](../assets/guys.png)
