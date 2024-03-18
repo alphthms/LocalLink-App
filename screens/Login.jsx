@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -14,6 +14,7 @@ const ImageSlider = () => {
 	const handleNavigateToAnotherPage = () => {
 		navigation.navigate('Map'); // Navigate to AnotherPage
 	};
+
 	const handleNavigateToAnotherAnotherPage = () => {
 		navigation.navigate('Prizes'); // Navigate to AnotherPage
 	};
@@ -28,9 +29,14 @@ const ImageSlider = () => {
 	]);
 
 	const [selectedImage, setSelectedImage] = useState(null);
+	const [profilePicture, setProfilePicture] = useState(require('../assets/locallogo.png'));
 
 	const handleImagePress = () => {
 		setSelectedImage(null);
+	};
+
+	const changeProfilePicture = (newProfilePicture) => {
+		setProfilePicture(newProfilePicture);
 	};
 
 	const renderImage = ({ item }) => (
@@ -41,6 +47,10 @@ const ImageSlider = () => {
 
 	return (
 		<View style={styles.container}>
+			<View style={styles.profileContainer}>
+				<Image source={profilePicture} style={styles.profilePicture} />
+				<Text style={styles.profileText}>Welcome to Locallink</Text>
+			</View>
 			<FlatList
 				data={images}
 				renderItem={renderImage}
@@ -59,7 +69,7 @@ const ImageSlider = () => {
 			)}
 			<View style={styles.footer}>
 				<TouchableOpacity onPress={handleNavigateToAnotherAnotherPage}>
-					<Image source={require('../assets/guys.png')} style={styles.footerImage} />
+					<Image source={require('../assets/foodlogo.png')} style={styles.footerImage} />
 				</TouchableOpacity>
 				<TouchableOpacity onPress={handleGoBack}>
 					<Image source={require('../assets/homepic.png')} style={styles.footerImage} />
@@ -81,15 +91,32 @@ const styles = StyleSheet.create({
 	},
 	imageList: {
 		alignItems: 'center',
-		marginTop: 600, // Adjust the top margin
+		marginTop: 630, // Adjust the top margin
 		height: 180, // Set the height of the image list
 	},
 	image: {
-		width: 100, // Adjust the width of the image
-		height: 100, // Adjust the height of the image
+		width: 90, // Adjust the width of the image
+		height: 90, // Adjust the height of the image
 		resizeMode: 'cover',
 		borderRadius: 15, // Adjust the border radius
-		marginHorizontal: 5,
+		marginHorizontal: 7,
+	},
+	profileContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		position: 'absolute',
+		top: 45,
+		left: 20,
+	},
+	profilePicture: {
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+	},
+	profileText: {
+		marginLeft: 10,
+		fontSize: 19,
+		fontWeight: 'bold',
 	},
 	modalContainer: {
 		...StyleSheet.absoluteFillObject,
@@ -114,7 +141,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		backgroundColor: '#fff',
 		paddingTop: 4,
-		paddingBottom: 10,
+		paddingBottom: 13,
 		alignItems: 'center',
 		paddingHorizontal: 30, // Add horizontal padding for space between buttons
 	},
