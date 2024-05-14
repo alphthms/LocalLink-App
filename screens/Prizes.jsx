@@ -42,9 +42,10 @@ const ImageGrid = () => {
 		'Hideout Coffee',
 		'Natty s Jerk Kitchen',
 		'Fuegos Street',
+		'Natty s Jerk Kitchen',
 		'Subtitle for Food 2',
 		'Subtitle for Ramen',
-		'Subtitle for Food 1',
+		'Subtitl1',
 	];
 
 	// Filter images based on search query

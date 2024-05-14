@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
 
 const ProfilePage = ({ navigation }) => {
+	const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+
 	// Dummy user data
 	const user = {
 		username: 'alphonsethm',
@@ -15,10 +17,31 @@ const ProfilePage = ({ navigation }) => {
 			<Image source={user.avatar} style={styles.avatar} />
 			<Text style={styles.username}>{user.username}</Text>
 			<Text style={styles.bio}>{user.bio}</Text>
-			<Image source={require('../assets/ramen.png')} style={styles.additionalImage} />
-			<TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.buttonContainer}>
-				<Image source={require('../assets/homepic.png')} style={styles.buttonImage} />
+			<Text style={styles.heading1}>1400 Points</Text>
+
+			<TouchableOpacity onPress={() => setModalVisible(true)}>
+				<Image source={require('../assets/debitcard.png')} style={styles.image} />
+				<Image source={require('../assets/applewallet.png')} style={styles.image2} />
 			</TouchableOpacity>
+
+			{/* Modal for displaying the image */}
+			<Modal
+				animationType="slide"
+				transparent={true}
+				visible={modalVisible}
+				onRequestClose={() => {
+					setModalVisible(false);
+				}}
+			>
+				<View style={styles.modalContainer}>
+					<View style={styles.modalContent}>
+						<Image source={require('../assets/barcode.png')} style={styles.modalImage} />
+						<TouchableOpacity onPress={() => setModalVisible(false)}>
+							<Text style={styles.closeButton}>Close</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</Modal>
 		</View>
 	);
 };
@@ -27,8 +50,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'flex-start', // Align content to the top of the screen
-		paddingTop: 80, // Add padding from the top to push content down
+		justifyContent: 'flex-start',
+		paddingTop: 80,
 	},
 	heading: {
 		fontSize: 20,
@@ -36,6 +59,13 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		marginLeft: 20,
 		marginBottom: 20,
+	},
+	heading1: {
+		fontSize: 30,
+		fontWeight: 'bold',
+		alignSelf: 'flex-start',
+		marginLeft: 20,
+		marginBottom: 30,
 	},
 	avatar: {
 		width: 130,
@@ -54,20 +84,38 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		marginBottom: 20,
 	},
-	additionalImage: {
-		width: 250, // Larger width
-		height: 250, // Larger height
-		alignSelf: 'flex-start', // Align to the left
-		marginTop: 30,
-		marginLeft: 10, // Add some left margin
+	image: {
+		width: 330, // Adjust the width to make the image bigger
+		height: 200, // Adjust the height to maintain aspect ratio
 		marginBottom: 20,
 	},
-	buttonContainer: {
-		padding: 100,
+	image2: {
+		width: 200, // Adjust the width to make the image bigger
+		height: 100, // Adjust the height to maintain aspect ratio
+		marginBottom: 20,
+		marginLeft: 60,
 	},
-	buttonImage: {
-		width: 50,
-		height: 50,
+	modalContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	},
+	modalContent: {
+		backgroundColor: 'white',
+		padding: 20,
+		borderRadius: 10,
+		alignItems: 'center',
+	},
+	modalImage: {
+		width: 200,
+		height: 200,
+		marginBottom: 20,
+	},
+	closeButton: {
+		fontSize: 16,
+		color: 'blue',
+		marginTop: 10,
 	},
 });
 

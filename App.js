@@ -8,6 +8,7 @@ import HomeScreen from './screens/Home';
 import AccountScreen from './screens/Account';
 import MapScreen from './screens/Map';
 import PrizesScreen from './screens/Prizes';
+import LocationScreen from './screens/Location';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ function App() {
 				<Stack.Screen name="Account" component={AccountScreen} />
 				<Stack.Screen name="Map" component={MapScreen} />
 				<Stack.Screen name="Prizes" component={PrizesScreen} />
+				<Stack.Screen name="Location" component={LocationScreen} />
 			</Stack.Navigator>
 			<StatusBar style="auto" />
 		</NavigationContainer>

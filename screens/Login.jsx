@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, Text } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, Text, Modal, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Swiper from 'react-native-swiper';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const CombinedImageSlider = () => {
 	const navigation = useNavigation();
@@ -19,44 +20,34 @@ const CombinedImageSlider = () => {
 		navigation.navigate('Prizes'); // Navigate to AnotherPage
 	};
 
-	const [smallImages] = useState([
-		{ id: 1, image: require('../assets/jerklogo.png') },
-		{ id: 2, image: require('../assets/finalcofffeee.png') },
-		{ id: 3, image: require('../assets/fuegologo.png') },
-		{ id: 4, image: require('../assets/coffee.png') },
-		{ id: 5, image: require('../assets/clubhousedone.png') },
-		// Add more images as needed
-	]);
+	const handleNavigateToAnotherAnotherAnotherPage = () => {
+		navigation.navigate('Location'); // Navigate to AnotherPage
+	};
 
-	const [largeImages] = useState([
-		{ id: 1, image: require('../assets/food2.png') },
-		{ id: 2, image: require('../assets/guys.png') },
-		{ id: 3, image: require('../assets/guys.png') },
-		// Add more images as needed
+	const [smallImages, setSmallImages] = useState([
+		{ id: 1, image: require('../assets/jerklogo.png'), selectedImage: require('../assets/nattytimetable.png') },
+		{ id: 6, image: require('../assets/bored.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 4, image: require('../assets/sweettooth.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 3, image: require('../assets/florios.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 5, image: require('../assets/theclubhouse.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 2, image: require('../assets/spark.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 7, image: require('../assets/hunter.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 8, image: require('../assets/tenth.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 9, image: require('../assets/portsolent.png'), selectedImage: require('../assets/floratimetable.png') },
+		{ id: 10, image: require('../assets/baycoffee.png'), selectedImage: require('../assets/floratimetable.png') },
 	]);
 
 	const [selectedImage, setSelectedImage] = useState(null);
-	const [profilePicture, setProfilePicture] = useState(require('../assets/locallogo.png'));
+	const [modalVisible, setModalVisible] = useState(false);
 
-	const handleImagePress = () => {
-		setSelectedImage(null);
-	};
-
-	const changeProfilePicture = (newProfilePicture) => {
-		setProfilePicture(newProfilePicture);
+	const handleImagePress = (item) => {
+		setSelectedImage(item.selectedImage);
+		setModalVisible(true);
 	};
 
 	const renderSmallImage = ({ item }) => (
-		<TouchableOpacity onPress={handleImagePress}>
+		<TouchableOpacity onPress={() => handleImagePress(item)}>
 			<Image source={item.image} style={styles.smallImage} />
-		</TouchableOpacity>
-	);
-
-	const renderLargeImage = ({ item }) => (
-		<TouchableOpacity onPress={() => setSelectedImage(item)}>
-			<View style={styles.largeImageContainer}>
-				<Image source={item.image} style={styles.largeImage} />
-			</View>
 		</TouchableOpacity>
 	);
 
@@ -64,7 +55,7 @@ const CombinedImageSlider = () => {
 		<View style={styles.container}>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<View style={styles.profileContainer}>
-					<Image source={profilePicture} style={styles.profilePicture} />
+					<Image source={require('../assets/locallogo.png')} style={styles.profileIcon} />
 					<Text style={styles.profileText}>Welcome to Locallink</Text>
 				</View>
 				<FlatList
@@ -76,24 +67,21 @@ const CombinedImageSlider = () => {
 					keyExtractor={(item) => item.id.toString()}
 					contentContainerStyle={styles.smallImageList}
 				/>
-				<Text style={styles.sectionTitle}>Charites</Text>
-				<FlatList
-					data={largeImages}
-					renderItem={renderLargeImage}
-					horizontal
-					pagingEnabled
-					showsHorizontalScrollIndicator={false}
-					keyExtractor={(item) => item.id.toString()}
-					contentContainerStyle={styles.largeImageList}
-				/>
-				{selectedImage && (
-					<TouchableOpacity style={styles.modalContainer} onPress={() => setSelectedImage(null)}>
-						<View style={styles.modal}>
-							<Text style={styles.modalText}>{selectedImage.text}</Text>
-						</View>
-					</TouchableOpacity>
-				)}
+				<Swiper style={styles.swiperContainer} loop={false}>
+					<Image source={require('../assets/bored4.png')} style={styles.centerImage} />
+					<Image source={require('../assets/natty2.png')} style={styles.centerImage} />
+					<Image source={require('../assets/bored4.png')} style={styles.centerImage} />
+					{/* Add more images as needed */}
+				</Swiper>
 			</ScrollView>
+			<Modal visible={modalVisible} transparent={true} animationType="slide" onRequestClose={() => setModalVisible(false)}>
+				<View style={styles.modalContainer}>
+					<View style={styles.modal}>
+						<Image source={selectedImage} style={styles.modalImage} />
+						<Button title="Close" onPress={() => setModalVisible(false)} />
+					</View>
+				</View>
+			</Modal>
 			<View style={styles.footer}>
 				<TouchableOpacity onPress={handleGoBack}>
 					<Image source={require('../assets/homepic.png')} style={styles.footerImage} />
@@ -104,6 +92,9 @@ const CombinedImageSlider = () => {
 				<TouchableOpacity onPress={handleNavigateToAnotherPage}>
 					<Image source={require('../assets/profile1.png')} style={styles.footerImage} />
 				</TouchableOpacity>
+				<TouchableOpacity onPress={handleNavigateToAnotherAnotherAnotherPage}>
+					<Image source={require('../assets/mapicon2.png')} style={styles.footerImage} />
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -112,11 +103,11 @@ const CombinedImageSlider = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#eeeff3', // Set background color to #eceef3
+		backgroundColor: '#eeeff3',
 	},
 	scrollContainer: {
 		flexGrow: 1,
-		paddingBottom: 70, // Adjust the padding bottom to accommodate the sticky footer
+		paddingBottom: 70,
 	},
 	profileContainer: {
 		flexDirection: 'row',
@@ -125,15 +116,16 @@ const styles = StyleSheet.create({
 		top: 45,
 		left: 20,
 	},
-	profilePicture: {
+	profileIcon: {
 		width: 50,
 		height: 50,
-		borderRadius: 25,
+		marginRight: 10,
+		marginTop: 10,
 	},
 	profileText: {
-		marginLeft: 10,
 		fontSize: 19,
 		fontWeight: 'bold',
+		marginTop: 15,
 	},
 	smallImageList: {
 		marginTop: 120,
@@ -144,69 +136,49 @@ const styles = StyleSheet.create({
 		height: 90,
 		resizeMode: 'cover',
 		borderRadius: 15,
-		marginRight: 10,
+		marginTop: 10,
 	},
-	largeImageList: {
-		marginTop: 20,
-		paddingHorizontal: 10,
+	swiperContainer: {
+		height: 300,
 	},
-	largeImageContainer: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginRight: 20, // Add margin between images
-	},
-	largeImage: {
-		width: 320,
-		height: 250,
-		resizeMode: 'cover',
-		borderRadius: 15,
-	},
-	largeImageText: {
-		position: 'absolute',
-		bottom: 15,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-		color: 'blue',
-		paddingHorizontal: 10,
-		borderRadius: 5,
-		fontSize: 16,
+	centerImage: {
+		width: width,
+		height: 200, // Adjust height as needed
+		width: 340,
+		marginLeft: 10,
+		borderRadius: 20,
+		paddingBottom: 200,
 	},
 	modalContainer: {
 		...StyleSheet.absoluteFillObject,
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingBottom: 100,
 	},
 	modal: {
 		backgroundColor: 'white',
-		width: 250,
-		height: 250,
 		borderRadius: 10,
 		elevation: 5,
 	},
-	modalText: {
-		fontSize: 18,
-		fontWeight: 'bold',
-		textAlign: 'center',
+	modalImage: {
+		width: 350,
+		height: 300,
+		borderRadius: 10,
 	},
 	footer: {
 		position: 'absolute',
 		bottom: 0,
 		left: 0,
 		right: 0,
-		flexDirection: 'row', // Align buttons horizontally
-		justifyContent: 'space-between', // Distribute space evenly
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		backgroundColor: '#fff',
 		paddingVertical: 15,
-		paddingHorizontal: 30, // Add horizontal padding for space between buttons
+		paddingHorizontal: 30,
 	},
 	footerImage: {
-		width: 40, // Adjust image width
-		height: 40, // Adjust image height
-	},
-	sectionTitle: {
-		fontSize: 18,
-		fontWeight: 'bold',
-		marginLeft: 10,
-		marginTop: 10,
+		width: 40,
+		height: 40,
 	},
 });
 
