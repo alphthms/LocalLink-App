@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal } from 'react-native';
 
 const ProfilePage = ({ navigation }) => {
-	const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
+	const [modalVisible, setModalVisible] = useState(false); // Define state variables
 
-	// Dummy user data
 	const user = {
 		username: 'alphonsethm',
 		bio: "Welcome to your account page, there's so much you can do",
-		avatar: require('../assets/guys.png'), // You can replace this with your own image
+		avatar: require('../assets/guys.png'),
 	};
 
 	return (
@@ -20,7 +19,6 @@ const ProfilePage = ({ navigation }) => {
 			<Text style={styles.heading1}>1400 Points</Text>
 
 			<TouchableOpacity onPress={() => setModalVisible(true)}>
-				<Image source={require('../assets/debitcard.png')} style={styles.image} />
 				<Image source={require('../assets/applewallet.png')} style={styles.image2} />
 			</TouchableOpacity>
 
@@ -84,16 +82,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		marginBottom: 20,
 	},
-	image: {
-		width: 330, // Adjust the width to make the image bigger
-		height: 200, // Adjust the height to maintain aspect ratio
-		marginBottom: 20,
-	},
 	image2: {
 		width: 200, // Adjust the width to make the image bigger
 		height: 100, // Adjust the height to maintain aspect ratio
-		marginBottom: 20,
-		marginLeft: 60,
+		marginTop: 30,
+		marginLeft: 0,
 	},
 	modalContainer: {
 		flex: 1,

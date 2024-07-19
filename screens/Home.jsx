@@ -4,14 +4,14 @@ import { View, Text, Image, Pressable, Button, StyleSheet } from 'react-native';
 export default function HomeScreen({ navigation }) {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Continue as?</Text>
-			<Text style={styles.title}>Alphonse</Text>
-			<Image source={require('../assets/guys.png')} style={styles.HeaderImage} />
+			<Text style={styles.title}>Welcome To</Text>
+			<Text style={styles.title}>LocalLinked!</Text>
+			<Image source={require('../assets/locallogo.png')} style={styles.HeaderImage} />
 			<Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
 				<Text style={styles.text}>Login</Text>
 			</Pressable>
 			<Pressable style={styles.button} onPress={() => navigation.navigate('Account')}>
-				<Text style={styles.text}>Not you? or Register</Text>
+				<Text style={styles.text}>Or Sign Up?</Text>
 			</Pressable>
 		</View>
 	);
