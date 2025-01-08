@@ -1,2 +1,2 @@
-![Alt text](assets/guys.png)
+![Alt text](assets/homeprofile.png)
 
